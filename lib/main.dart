@@ -30,16 +30,72 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  String output="0";
+  String _output="0";
+  double number1=0.0;
+  double number2=0.0;
+  String operand="";
+
   Widget buildButton( String buttonNumber){
     return Expanded(
       child: new MaterialButton(
         padding: new EdgeInsets.all(24.0),
         child: new Text(buttonNumber),
-        onPressed: ()=>{},
+        onPressed: ()=>
+          buttonPressed(buttonNumber),
+
         color: Colors.cyan,
         textColor: Colors.white,),
     );
   }
+
+  buttonPressed(String buttonText) {
+    if (buttonText == "C") {
+      _output = "0";
+      number1 = 0.0;
+      number2 = 0.0;
+      operand = "";
+    } else if (buttonText == "+" || buttonText == "-" || buttonText == "/" ||
+        buttonText == "*") {
+      number1 = double.parse(output);
+      operand = buttonText;
+      _output = "0";
+    } else if (buttonText == ".") {
+      if (_output.contains(".")) {
+        print("поставлена точка");
+        return;
+      } else
+        {
+          _output += buttonText;
+        }
+    }else if(buttonText=="=")
+              {
+              number2=double.parse(output);
+              switch(operand)
+              {
+              case "+": _output=(number1+number2).toString(); break;
+              case "-": _output=(number1-number2).toString(); break;
+              case "*": _output=(number1*number2).toString(); break;
+              case "/": _output=(number1/number2).toString(); break;
+              }
+              number1=0.0;
+              number2=0.0;
+              operand="";
+              } else
+                {
+                  _output+=buttonText;
+                }
+
+    print(_output);
+
+    setState(() {
+      output=double.parse(_output).toString();
+    });
+
+
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +105,18 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: new Container(
+
         child: new Column( children: [
-          new Text("0"),
+          Container(
+            alignment: Alignment.centerRight,
+            padding: new EdgeInsets.symmetric(
+            vertical: 24.0,
+              horizontal: 12.0
+
+        ),
+              child: new Text(output, style: new TextStyle(
+            fontSize: 40.0,
+          ),)),
 
           new Expanded(
             child: new Divider(),
