@@ -30,12 +30,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  //variables for calculations
   String output="0";
   String _output="0";
   double number1=0.0;
   double number2=0.0;
   String operand="";
 
+  //creating a button
   Widget buildButton( String buttonNumber){
     return Expanded(
       child: new MaterialButton(
@@ -48,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
         textColor: Colors.white,),
     );
   }
-
+  //description of the event when the buttons are pressed
   buttonPressed(String buttonText) {
     if (buttonText == "C") {
       _output = "0";
@@ -91,8 +93,6 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       output=double.parse(_output).toString();
     });
-
-
   }
 
 
@@ -104,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+
       body: new Container(
 
         child: new Column( children: [
@@ -114,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
               horizontal: 12.0
 
         ),
+          //creating an element for displaying input numbers
               child: new Text(output, style: new TextStyle(
             fontSize: 40.0,
           ),)),
@@ -122,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: new Divider(),
 
           ),
-
+          //drawing buttons by columns
           Column(
             children: [ Row(
                 children: [
